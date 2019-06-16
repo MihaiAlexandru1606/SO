@@ -1,0 +1,68 @@
+
+ ____    _____       __       _____   ______  ____    ____    ____
+/\  _`\ /\  __`\    /\ \     /\  __`\/\  _  \/\  _`\ /\  _`\ /\  _`\
+\ \,\L\_\ \ \/\ \   \ \ \    \ \ \/\ \ \ \L\ \ \ \/\ \ \ \L\_\ \ \L\ \
+ \/_\__ \\ \ \ \ \   \ \ \  __\ \ \ \ \ \  __ \ \ \ \ \ \  _\L\ \ ,  /
+   /\ \L\ \ \ \_\ \   \ \ \L\ \\ \ \_\ \ \ \/\ \ \ \_\ \ \ \L\ \ \ \\ \
+   \ `\____\ \_____\   \ \____/ \ \_____\ \_\ \_\ \____/\ \____/\ \_\ \_\
+    \/_____/\/_____/    \/___/   \/_____/\/_/\/_/\/___/  \/___/  \/_/\/ /
+
+---------------------         Sisteme de Operare         -----------------------
+
+Tema 3 :  Loader de Executabile
+Nume : Niculescu
+Prenume : Mihai Alexandru
+Grupa : 335CB
+Sistem de operare : Windows 10
+Editor : CLion
+
+--------------------------------------------------------------------------------
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Organizare >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    ├── loader
+    │   ├── debug.h
+    │   ├── exec_parser.c
+    │   ├── exec_parser.h
+    │   ├── loader.c
+    │   └── loader.h
+    ├── Makefile
+    └── README
+
+    Tema are ca scop realizari unei bibloteci care aduce in memorie un
+executabil. Rezolvarea temei a pornit de la laboratorul 6.
+    In so_init_loader se initializeaza/seteaza rutina pentru tratarea semalului
+SIGSEGV. Exista handler-ul : seg_fault_handler pentru codul
+EXCEPTION_ACCESS_VIOLATION  in cazul in care este o pagina
+nemapata  si se afla in segmanet, altfel este actiunea implicita.
+    Mai intai se determina adresa de inceput a pagini, acest lucru este posibil
+folosind ALIGN_DOWN pt PAGE_Size, adresa de inceput pt un segment este un
+multiplu de pageSize si tot adunam pageSize, asta inseamna adresa de inceput a
+pagini "unde se afla" adresa este tot multiplu de pageSize.
+    Indentificam index-ul pt respectiva pagina, daca nu se retuneaza NULL_INDEX.
+Se calculeaza offsetul in segment a pagini respentive in segment.
+    Fiesrul este mapat in memrie pt a nu trebui sa fac de fiecare data operati
+I/O, am gasit in lista de discuti, de anul trecut acest lucru si rapunsul era
+ca putem sa mapam exectabilul in memorie apoi sa copiem paginile de acolo cand
+este nevoie. [1], deci nu cred ca este o problema, este si lista de discuti
+utila :)
+Daca sunt date sunt copiecte apoi, dupa ce sunt alocate la adresa repectivei
+pagini  cu ajutorul VirtualAlloc, aceste sunt implit cu toate drepturile,  pt
+copoiere, si dupa ce sunt copiate se seteza permisiunea indicata pt respectivul
+segment. Tot timpul se aloca o pagina cu granulalitatea indicata in enunt.
+
+    La final se inchid handel si se demapeaza fierul din memorie.
+
+[1] http://cursuri.cs.pub.ro/pipermail/so/2018-April/018376.html
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Rulare >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    Pentru crearea biblioteci:
+    *) nmake build
+
+
+    Pentru eliminare executabil:
+    *) nmake clean
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

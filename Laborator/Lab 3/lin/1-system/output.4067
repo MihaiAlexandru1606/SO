@@ -1,0 +1,2 @@
+execve("/bin/ls", ["ls"], 0x560d018bb188 /* 70 vars */) = 0
++++ exited with 0 +++

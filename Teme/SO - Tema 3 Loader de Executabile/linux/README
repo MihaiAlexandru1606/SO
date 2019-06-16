@@ -1,0 +1,61 @@
+
+ ____    _____       __       _____   ______  ____    ____    ____
+/\  _`\ /\  __`\    /\ \     /\  __`\/\  _  \/\  _`\ /\  _`\ /\  _`\
+\ \,\L\_\ \ \/\ \   \ \ \    \ \ \/\ \ \ \L\ \ \ \/\ \ \ \L\_\ \ \L\ \
+ \/_\__ \\ \ \ \ \   \ \ \  __\ \ \ \ \ \  __ \ \ \ \ \ \  _\L\ \ ,  /
+   /\ \L\ \ \ \_\ \   \ \ \L\ \\ \ \_\ \ \ \/\ \ \ \_\ \ \ \L\ \ \ \\ \
+   \ `\____\ \_____\   \ \____/ \ \_____\ \_\ \_\ \____/\ \____/\ \_\ \_\
+    \/_____/\/_____/    \/___/   \/_____/\/_/\/_/\/___/  \/___/  \/_/\/ /
+
+---------------------         Sisteme de Operare         -----------------------
+
+Tema 3 :  Loader de Executabile
+Nume : Niculescu
+Prenume : Mihai Alexandru
+Grupa : 335CB
+Sistem de operare : Ubuntu 18.04 LTS 64bit && Windows 10
+Editor : CLion
+
+--------------------------------------------------------------------------------
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Organizare >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    ├── loader
+    │   ├── debug.h
+    │   ├── exec_parser.c
+    │   ├── exec_parser.h
+    │   ├── loader.c
+    │   └── loader.h
+    ├── Makefile
+    └── README
+
+    Tema are ca scop realizari unei bibloteci care aduce in memorie un
+executabil. Rezolvarea temei a pornit de la laboratorul 6.
+    In so_init_loader se initializeaza/seteaza rutina pentru tratarea semalului
+SIGSEGV. Exista handler-ul : seg_fault_handler pentru semnalul SEGSEGV in cazul
+in care este o pagina nemapata(adaci siginfo->si_code == SEGV_MAPERR) si se afla
+in segmanet, altfel este actiunea implicita.
+    Mai intai se determina adresa de inceput a pagini, acest lucru este posibil
+folosind ALIGN_DOWN pt pageSize, adresa de inceput pt un segment este un
+multiplu de pageSize si tot adunam pageSize, asta inseamna adresa de inceput a
+pagini "unde se afla" adresa este tot multiplu de pageSize.
+    Indentificam index-ul pt respectiva pagina, daca nu se retuneaza NULL_INDEX.
+Se calculeaza offsetul in segment a pagini respentive in segment. Daca sunt date
+de citit din fiser se folosest mmap cu parametrul MAP_FIXED, offsetul pentru
+datele din fiser este suma celor doua offset-uri. Cand sunt date de citit si
+o zona de 0, se citesc pana la final datelea apoi restul sunt facute 0.
+Cand nu trebui sa citim nimic din fisier se foloseste mmap cu parametru
+MAP_ANONYMOUS, initializeaza memoria cu 0.
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Rulare >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    Pentru crearea biblioteci:
+    *) make build
+
+
+    Pentru eliminare executabil:
+    *) make clean
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

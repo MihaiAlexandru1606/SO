@@ -1,0 +1,86 @@
+ ______                                   _      ____    _____
+/\__  _\                                /' \    /\  _`\ /\  __`\
+\/_/\ \/    __    ___ ___      __      /\_, \   \ \,\L\_\ \ \/\ \
+   \ \ \  /'__`\/' __` __`\  /'__`\    \/_/\ \   \/_\__ \\ \ \ \ \
+    \ \ \/\  __//\ \/\ \/\ \/\ \L\.\_     \ \ \    /\ \L\ \ \ \_\ \
+     \ \_\ \____\ \_\ \_\ \_\ \__/.\_\     \ \_\   \ `\____\ \_____\
+      \/_/\/____/\/_/\/_/\/_/\/__/\/_/      \/_/    \/_____/\/_____/
+
+
+---------------------         Sisteme de Operare         -----------------------
+
+Tema 1 :  Multi-platform Development
+Nume : Niculescu
+Prenume : Mihai Alexandru
+Grupa : 335CB
+Sistem de operare : Ubuntu 18.04 LTS 64bit
+Editor : CLion
+
+--------------------------------------------------------------------------------
+
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Structura Temei  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+.
+├── GNUmakefile
+├── Makefile
+├── README
+└── src
+    ├── main.c
+    ├── parser
+    │   ├── parser.c
+    │   └── parser.h
+    └── priority_queue
+        ├── compare.h
+        ├── priority_queue.c
+        └── priority_queue.h
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Structuri de Date  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    Coada este implementata ca o lista ordonata. In strcutura cozii este retinut
+inceputul listei si comparatorul, pe baza lui reusind ordonarea. In structura
+unei celule din lista, este retinuta prioritate, cuvantul si adresa urmatoarei
+celule.
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<        main        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    In main se deschid fisierele, daca nu se poate descide se ignora, apoi este
+functia read_file, care citeste din fisier si aplica fiecare operatie valida pe
+coada cu prioritate, fiind initializata in prealabil. head din strcutura cozi
+retine adresa primei celule.
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<   priority_queue   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    Pentru initializare exita functia : create_priority_queue.
+    Adauagare in coada are complexitate : O(n), operatia de adaugare presupune
+cautarea in lista a primei celule care are prioritatea mai mica decat celula pe
+care o introducem, asta inseamna ca la prioritati egale se pastreaza ordinea de
+indroducere. Dupa aceia se insereaza noua celula, daca se poate aloca memoria.
+    Top : O(1). daca coada este vida se intoarece NULL, altfel cuvantul primei
+celula, (head din structura).
+    Pop : O(1) eliminare primei celula si eliberarea memoriei. Daca coada este
+vida atunci se ignora.
+    Pentru eliberea memorie exista functia : destroy_priority_queue.
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<       parser       >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    Functia read_file citeste o linei dintr-un fisier, apoi o trimite functiei
+parser_command. Ea verifica daca primul token, diferit de caracte speciale si
+spatii albe, reprezinta o posibila comanda valida. Daca da, atunci apeleza
+functia corespunzatoare fiecarei operatii, altfel o ignora. Pentru fiecare
+operatie exista o functie care verifica daca, comanda, respecta formatul descris
+in enunt. Daca da aplelea functia corepunzatoare pe coada, altfel o ignora.
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
